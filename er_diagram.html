@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Management System - ER Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h1 { color: #38bdf8; margin-top: 0; }
+        h2 { color: #a855f7; border-bottom: 2px solid #334155; padding-bottom: 8px; }
+        .mermaid {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #334155;
+            text-align: left;
+        }
+        th { background-color: #0284c7; color: white; }
+        tr:nth-child(even) { background-color: #0f172a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DKTE Society's Textile & Engineering Institute</h1>
+        <p><strong>Department of MCA | Practical Examination Set - 6</strong></p>
+        <h2>Q.4: Entity-Relationship (ER) Diagram - College Management System</h2>
+        
+        <div class="mermaid">
+erDiagram
+    Departments ||--o{ Students : "enrolls"
+    Departments ||--o{ Professors : "employs"
+    Departments ||--o{ Courses : "offers"
+    Professors ||--o{ Courses : "teaches"
+    Students ||--o{ Enrollments : "registers"
+    Courses ||--o{ Enrollments : "contains"
+
+    Departments {
+        int dept_id PK
+        string dept_name
+        string hod_name
+        string contact_email
+    }
+    Students {
+        int student_id PK
+        string full_name
+        string email
+        int dept_id FK
+        int enrollment_year
+    }
+    Professors {
+        int prof_id PK
+        string full_name
+        string email
+        int dept_id FK
+        string designation
+    }
+    Courses {
+        int course_id PK
+        string course_code
+        string course_name
+        int credits
+        int dept_id FK
+        int prof_id FK
+    }
+    Enrollments {
+        int enrollment_id PK
+        int student_id FK
+        int course_id FK
+        string semester
+        string grade
+    }
+        </div>
+
+        <h2>Entity Relationship Summary</h2>
+        <table>
+            <tr><th>Relationship</th><th>Cardinality</th><th>Description</th></tr>
+            <tr><td>Departments &rarr; Students</td><td>1 : N</td><td>One department has many students.</td></tr>
+            <tr><td>Departments &rarr; Professors</td><td>1 : N</td><td>One department employs many professors.</td></tr>
+            <tr><td>Professors &rarr; Courses</td><td>1 : N</td><td>One professor teaches multiple courses.</td></tr>
+            <tr><td>Students &harr; Courses</td><td>M : N</td><td>Managed via associative 'Enrollments' table.</td></tr>
+        </table>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>
